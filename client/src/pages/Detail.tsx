@@ -9,6 +9,7 @@ import PhotoModal from "../components/Modals/PhotoModal";
 import type { RootState } from "../store";
 import PhotoUploader from "../components/PhotoUploader";
 import CalendarRecord from "../components/CalendarRecord";
+import DeleteModal from "../components/Modals/DeleteModal";
 
 import {
   axios_Get_DetailPosts,
@@ -20,7 +21,15 @@ import {
 } from "../axios";
 
 const FormData = require("form-data");
-
+function showTime(duration: number) {
+  let seconds: number | string = Math.floor(duration % 60);
+  let minutes: number | string = Math.floor((duration / 60) % 60);
+  let hours: number | string = Math.floor((duration / (60 * 60)) % 24);
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+  return hours + "시간 " + minutes + "분 " + seconds + "초";
+}
 interface RecordType {
   genre: string;
   weight: number;
@@ -190,7 +199,21 @@ export default function Detail() {
         });
     });
   };
+  const handleModifyPost = () => {
+    setIsModify(!isModify);
+    setTitleContent(postInfo.title);
+    setTextContent(postInfo.info);
+    setBodyPart(postInfo.body_part);
+    // setPhoto(postInfo.users.image);
+    setDifficult(postInfo.difficult);
+    setTotalTime(postInfo.total_time);
+    setExInfo(postInfo.exerciseInfo.id);
+  };
 
+  const [deleteModal, setDeleteModal] = useState(false);
+  const openDeleteModal = () => {
+    setDeleteModal(!deleteModal);
+  };
   const handlePostDelete = () => {
     console.log("포스트삭제");
     axios_Delete_Post(postId, user.accessToken).then(() => {
@@ -227,7 +250,7 @@ export default function Detail() {
                   <img
                     src={postInfo.users.image}
                     style={{ width: "70px" }}
-                    alt ="user"
+                    alt="user"
                   />
                   <div>{postInfo.users.nickname}</div>
                 </div>
@@ -238,7 +261,11 @@ export default function Detail() {
 
               <div id="detail-image">
                 <div>{postInfo.created_At.split("T")[0]}</div>
-                <PhotoUploader photo={photo} setPhoto={setPhoto} photoUrl={postInfo.image}/>
+                <PhotoUploader
+                  photo={photo}
+                  setPhoto={setPhoto}
+                  photoUrl={postInfo.image}
+                />
                 {/* <img
                   src={postInfo.image}
                   alt="post_image"
@@ -259,14 +286,7 @@ export default function Detail() {
                 팔굽 윈몸 난이도
                 <br />
                 <br />
-                <div>
-                  총 소요시간:{" "}
-                  <input
-                    type="textarea"
-                    value={totalTime}
-                    onChange={(e) => setTotalTime(e.target.value)}
-                  ></input>
-                </div>
+                <div>총 소요시간: {showTime(postInfo.total_time)} </div>
                 <div>
                   난이도 :{" "}
                   <input
@@ -316,21 +336,20 @@ export default function Detail() {
                   <div>{postInfo.users.nickname}</div>
                 </div>
                 <div id="detail-butten">
-                  <button
-                    onClick={() => {
-                      setIsModify(!isModify);
-                      setTitleContent(postInfo.title);
-                      setTextContent(postInfo.info);
-                      setBodyPart(postInfo.body_part);
-                      // setPhoto(postInfo.users.image);
-                      setDifficult(postInfo.difficult);
-                      setTotalTime(postInfo.total_time);
-                      setExInfo(postInfo.exerciseInfo.id);
-                    }}
-                  >
-                    수정
-                  </button>
-                  <button onClick={handlePostDelete}>삭제</button>
+                  {postInfo.users.id === user.id ? (
+                    <div>
+                      <button onClick={handleModifyPost}>수정</button>
+                      <button onClick={openDeleteModal}>삭제</button>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
+                  {deleteModal ? (
+                    <DeleteModal
+                      setDeleteModal={setDeleteModal}
+                      handlePostDelete={handlePostDelete}
+                    />
+                  ) : null}
                 </div>
               </div>
 
@@ -353,7 +372,7 @@ export default function Detail() {
                 )} */}
                 <br />
                 <br />
-                <div>총 소요시간: {postInfo.total_time}</div>
+                <div>총 소요시간: {showTime(postInfo.total_time)} </div>
                 <div>난이도 : {postInfo.difficult}</div>
                 <div>운동부위 : {postInfo.body_part}</div>
                 <div> 소감 :{postInfo.info}</div>
