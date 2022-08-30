@@ -43,12 +43,18 @@
 > Muscle Formula √ Developers!
 
 
-
- ### 🏅 김경연 [`kimkyoungyeon`](https://github.com/kim-kyoungyeon/kyoungyeon.github.io)
-* position : Front-end 
-* Stack : Typescript, React, Styled-Component, CSS
+### 🏅 추홍욱 [`ChooHongWook`](https://github.com/ChooHongWook)
+* position : Back-end 
+* Stack: Typescript, Express, TypeORM, Mysql, React, Redux-toolkit, Styled-Component
 * contributions
-    * SR, 일정 관리, 랜딩 페이지, 푸터 작성
+  * typeORM을 이용한 entity구성
+  * OneToMany를 이용한 관계 구성
+  * Post, User, Comment CRUD 엔드포인트 작성
+  * 회원가입 페이지 유효성 검사
+  * 회원가입시 사용하고자하는 닉네임이 변할때 마다 사용가능한지여부 확인
+  * Detail page, Editor page 기능 및 css틀 작성
+  * Detail page에서 좋아요와 댓글 작성 및 확인기능 작성
+
 
   
  </details>
@@ -94,17 +100,11 @@
 <br>
 
 
-### 🏅 추홍욱 [`ChooHongWook`](https://github.com/ChooHongWook)
-* position : Back-end 
-* Stack: Typescript, Express, TypeORM, Mysql, React, Redux-toolkit, Styled-Component
+ ### 🏅 김경연 [`kimkyoungyeon`](https://github.com/kim-kyoungyeon/kyoungyeon.github.io)
+* position : Front-end 
+* Stack : Typescript, React, Styled-Component, CSS
 * contributions
-  * typeORM을 이용한 entity구성
-  * OneToMany를 이용한 관계 구성
-  * Post, User, Comment CRUD 엔드포인트 작성
-  * 회원가입 페이지 유효성 검사
-  * 회원가입시 사용하고자하는 닉네임이 변할때 마다 사용가능한지여부 확인
-  * Detail page, Editor page 기능 및 css틀 작성
-  * Detail page에서 좋아요와 댓글 작성 및 확인기능 작성
+    * SR, 일정 관리, 랜딩 페이지, 푸터 작성
 
 
 </details>
