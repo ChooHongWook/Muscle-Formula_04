@@ -1,14 +1,14 @@
-import React from "react";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import type { RootState } from "../store";
+import React from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../store';
 
 // import { useNavigate } from "react-router-dom";
 // const navigate = useNavigate();
-const qs = require("qs");
+const qs = require('qs');
 const clientURI = `http://localhost:3000`;
-// const serverURI = `http://localhost:4000`;
-const serverURI = `https://server.muscleformula.xyz`;
+const serverURI = `http://localhost:4000`;
+// const serverURI = `https://server.muscleformula.xyz`;
 
 // let user = useSelector((state: RootState) => state.userInfo.userInfo);
 // const localUser = localStorage.getItem("userInfo");
@@ -20,9 +20,9 @@ const serverURI = `https://server.muscleformula.xyz`;
 //----------------------------------------------------------------
 // ! oauth
 const kakao = {
-  clientID: "7d8937ab746c6e3604651e33e259fc1d",
-  clientSecret: "3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub",
-  redirectUri: "http://localhost:3000/callbackKakao",
+  clientID: '7d8937ab746c6e3604651e33e259fc1d',
+  clientSecret: '3pCkUe5V6jQXCFVEgJCXV7HxZNz0LOub',
+  redirectUri: 'http://localhost:3000/callbackKakao',
 };
 
 export const axios_Signup = (
@@ -58,13 +58,13 @@ export const axios_GetNickname = (userNickname: string) => {
 
 export const axios_GetKakaoToken = (code: string) => {
   return axios({
-    method: "POST",
-    url: "https://kauth.kakao.com/oauth/token",
+    method: 'POST',
+    url: 'https://kauth.kakao.com/oauth/token',
     headers: {
-      "content-type": "application/x-www-form-urlencoded",
+      'content-type': 'application/x-www-form-urlencoded',
     },
     data: qs.stringify({
-      grant_type: "authorization_code",
+      grant_type: 'authorization_code',
       client_id: kakao.clientID,
       client_secret: kakao.clientSecret,
       redirect_uri: kakao.redirectUri,
@@ -92,10 +92,10 @@ const googleInfo = `https://www.googleapis.com/oauth2/v3/userinfo`;
 export const axios_GetGoogleToken = (code: string) => {
   return axios.post(googleUrl, {
     client_id:
-      "1062811618314-04ajm3grgt3c9hf51lq1911qt3el9ro9.apps.googleusercontent.com",
-    client_secret: "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",
+      '1062811618314-04ajm3grgt3c9hf51lq1911qt3el9ro9.apps.googleusercontent.com',
+    client_secret: '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',
     code: code,
-    grant_type: "authorization_code",
+    grant_type: 'authorization_code',
     redirect_uri: `${clientURI}/callbackGoogle`,
   });
 };
@@ -110,7 +110,7 @@ export const axios_GetUser_toGoogleTOken = (accessToken: string) => {
 export const axios_Put_User = (formData: any, accessToken: string) => {
   return axios.put(`${serverURI}/user`, formData, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data',
       authorization: `Bearer ${accessToken}`,
     },
   });
@@ -195,7 +195,7 @@ export const axios_Get_Posts = () => {
 export const axios_CreatePost = (formData: any, accessToken: string) => {
   return axios.post(`${serverURI}/posts`, formData, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data',
       authorization: `Bearer ${accessToken}`,
     },
     // withCredentials: true,
@@ -208,7 +208,7 @@ export const axios_Put_Post = (
 ) => {
   return axios.put(`${serverURI}/posts/${postId}`, formData, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data',
       authorization: `Bearer ${accessToken}`,
     },
     // withCredentials: true,
